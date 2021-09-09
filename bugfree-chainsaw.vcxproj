@@ -72,7 +72,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\Users\rohit\rohitdm97\cpp\bugfree-chainsaw\include;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Users\rohit\rohitdm97\cpp\bugfree-chainsaw\include;C:\Users\rohit\rohitdm97\cpp\bugfree-chainsaw\src;$(IncludePath)</IncludePath>
     <LibraryPath>C:\Users\rohit\rohitdm97\cpp\bugfree-chainsaw\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -80,7 +80,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\Users\rohit\rohitdm97\cpp\bugfree-chainsaw\include;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Users\rohit\rohitdm97\cpp\bugfree-chainsaw\include;C:\Users\rohit\rohitdm97\cpp\bugfree-chainsaw\src;$(IncludePath)</IncludePath>
     <LibraryPath>C:\Users\rohit\rohitdm97\cpp\bugfree-chainsaw\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -147,6 +147,10 @@
   <ItemGroup>
     <ClCompile Include="src\glad.c" />
     <ClCompile Include="src\Main.cpp" />
+    <ClCompile Include="src\window\Window.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\window\Window.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
