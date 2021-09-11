@@ -4,6 +4,8 @@
 #define __SHADER_CLASS_H
 
 #include<glad/glad.h>
+#include<glm/glm.hpp>
+
 #include<string>
 #include<fstream>
 #include<sstream>
@@ -30,6 +32,7 @@ public:
 	void Delete();
 
 	// setters for uniform
+	void SetMat4(const char* name, glm::mat4 matrix);
 };
 
 #endif // !__SHADER_CLASS_H

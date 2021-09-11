@@ -1,5 +1,6 @@
 #include"Shader.h"
 #include <debug.h>
+#include <glm/gtc/type_ptr.hpp>
 
 // Reads a text file and outputs a string with everything in the text file
 string get_file_contents(string filename)
@@ -77,6 +78,11 @@ void Shader::Activate()
 void Shader::Delete()
 {
 	glDeleteProgram(ID);
+}
+
+void Shader::SetMat4(const char* name, glm::mat4 matrix)
+{
+	glUniformMatrix4fv(glGetUniformLocation(ID, name), 1, GL_FALSE, glm::value_ptr(matrix));
 }
 
 // Checks if the different Shaders have compiled properly

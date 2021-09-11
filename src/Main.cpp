@@ -10,6 +10,8 @@
 #include <texture/Texture.h>
 
 const bool wireframe = false;
+const int width = 1024;
+const int height = 768;
 
 //extern std::vector<glm::vec3> triangleVertices1;
 //extern std::vector<unsigned int> triangleIndices1;
@@ -18,10 +20,7 @@ const bool wireframe = false;
 extern std::vector<Vertex> vertices;
 extern std::vector<unsigned int> indices;
 
-void framebuffer_size_callback(GLFWwindow* window, int width, int height)
-{
-	glViewport(0, 0, width, height);
-}
+std::map<GLFWwindow*, Window*> Window::instances;
 
 void printMachineInfo() {
 	int nrAttributes;
@@ -36,12 +35,12 @@ int main() {
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-	Window window(800, 800, "This is the title");
+	Window window(width, height, "This is the title");
 	if (window.ref == NULL) {
 		return -1;
 	}
 	window.Activate();
-	glfwSetFramebufferSizeCallback(window.ref, framebuffer_size_callback);
+	window.RegisterCallbacks();
 
 	gladLoadGL();
 	printMachineInfo();
@@ -64,13 +63,24 @@ int main() {
 
 	Mesh mesh(vertices, indices);
 	Texture texture("wall.jpg");
+	Camera camera(glm::vec3(0, 0, 3), window.width, window.height);
+	window.SetCamera(camera);
+
+	double delta = 0;
+	double lastFrame = glfwGetTime();
 
 	while (!glfwWindowShouldClose(window.ref)) {
+		double currentFrame = glfwGetTime();
+		delta = currentFrame - lastFrame;
+		lastFrame = currentFrame;
+
+		window.HandleKeyboardInput(delta);
+
 		glClearColor(0.07f, 0.85f, 0.17f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		texture.Bind();
-		mesh.Render();
+		mesh.Render(camera);
 
 
 		glfwSwapBuffers(window.ref);

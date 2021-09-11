@@ -145,6 +145,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\camera\Camera.cpp" />
     <ClCompile Include="src\debug.cpp" />
     <ClCompile Include="src\glad.c" />
     <ClCompile Include="src\Main.cpp" />
@@ -160,6 +161,7 @@
     <ClCompile Include="src\window\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\camera\Camera.h" />
     <ClInclude Include="src\debug.h" />
     <ClInclude Include="src\model\EBO.h" />
     <ClInclude Include="src\model\Mesh.h" />

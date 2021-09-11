@@ -8,10 +8,13 @@ layout (location = 3) in vec2 in_texuv;
 out vec3 position;
 out vec2 texuv;
 
+uniform mat4 model;
+uniform mat4 camera;
+
 void main()
 {
 	position = /* model * */ in_pos;
 	texuv = in_texuv;
 
-	gl_Position = vec4(position, 1.0f);
+	gl_Position = camera * model * vec4(position, 1.0f);
 }
