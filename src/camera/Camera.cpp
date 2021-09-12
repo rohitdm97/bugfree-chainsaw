@@ -7,10 +7,10 @@
 const float YAW = -90.0f;
 const float PITCH = 0.0f;
 
-glm::vec3 origin = glm::vec3(0, 0, 0);
-glm::vec3 x_axis = glm::vec3(1, 0, 0);
-glm::vec3 y_axis = glm::vec3(0, 1, 0);
-glm::vec3 z_axis = glm::vec3(0, 0, 1);
+extern glm::vec3 origin;
+extern glm::vec3 x_axis;
+extern glm::vec3 y_axis;
+extern glm::vec3 z_axis;
 
 Camera::Camera(glm::vec3 position, int width, int height) :
 	Camera(position, width, height, YAW, PITCH)
@@ -40,6 +40,17 @@ void Camera::ProcessKeyboard(Camera::Movement direction, double delta)
 	if (direction == RIGHT)
 		position += right * velocity;
 
+	Camera::updateVectors();
+}
+
+void Camera::LookAt(glm::vec3 target)
+{
+	Camera::target = target;
+	glm::vec3 front = glm::normalize(target - position);
+	pitch = glm::degrees(asin(front.y));
+	yaw = glm::degrees(asin(front.z / cos(glm::radians(pitch))));
+
+	// update other vectors
 	Camera::updateVectors();
 }
 
@@ -75,6 +86,7 @@ void Camera::updateVectors() {
 	front.y = sin(glm::radians(pitch));
 	front.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
 	Camera::front = glm::normalize(front);
+	Camera::target = position + (front.operator*=(3 * sqrt(3)));
 
 	// also re-calculate the Right and Up vector
 	Camera::right = glm::normalize(glm::cross(front, y_axis));
@@ -87,5 +99,27 @@ void Camera::updateVectors() {
 void Camera::Export(Shader& shader)
 {
 	shader.SetMat4("camera", matrix);
+}
+
+void printTo(std::ostream& cout, glm::vec3 vec);
+void printTo(std::ostream& cout, glm::mat4 mat);
+
+void Camera::print() {
+	std::cout << "Camera[";
+	std::cout << "pos = ("; printTo(std::cout, position); std::cout << ")";
+	std::cout << ", width=" << width;
+	std::cout << ", height=" << height;
+	std::cout << ", yaw=" << yaw;
+	std::cout << ", pitch=" << pitch;
+	std::cout << ", speed=" << speed;
+	std::cout << ", sensitivity=" << sensitivity;
+	std::cout << ", zoom=" << zoom;
+	std::cout << ", pitch=" << pitch;
+	std::cout << "front = ("; printTo(std::cout, front); std::cout << ")";
+	std::cout << "target = ("; printTo(std::cout, target); std::cout << ")";
+	std::cout << "right = ("; printTo(std::cout, right); std::cout << ")";
+	std::cout << "up = ("; printTo(std::cout, up); std::cout << ")";
+	std::cout << "matrix = ("; printTo(std::cout, matrix); std::cout << ")";
+	std::cout << "]" << std::endl;
 }
 

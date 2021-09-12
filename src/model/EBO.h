@@ -10,6 +10,7 @@ class EBO
 {
 public:
 	GLuint ID;
+	GLsizei Length;
 	EBO(std::vector<unsigned int>& indices);
 
 	void Bind();

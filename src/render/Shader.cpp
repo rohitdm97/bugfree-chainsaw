@@ -80,6 +80,11 @@ void Shader::Delete()
 	glDeleteProgram(ID);
 }
 
+void Shader::SetVec3(const char* name, glm::vec3 vec3)
+{
+	glUniform3fv(glGetUniformLocation(ID, name), 1, glm::value_ptr(vec3));
+}
+
 void Shader::SetMat4(const char* name, glm::mat4 matrix)
 {
 	glUniformMatrix4fv(glGetUniformLocation(ID, name), 1, GL_FALSE, glm::value_ptr(matrix));

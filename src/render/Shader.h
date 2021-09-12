@@ -32,6 +32,7 @@ public:
 	void Delete();
 
 	// setters for uniform
+	void SetVec3(const char* name, glm::vec3 vec3);
 	void SetMat4(const char* name, glm::mat4 matrix);
 };
 

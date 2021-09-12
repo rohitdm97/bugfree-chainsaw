@@ -145,6 +145,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Box.cpp" />
     <ClCompile Include="src\camera\Camera.cpp" />
     <ClCompile Include="src\debug.cpp" />
     <ClCompile Include="src\glad.c" />
@@ -172,8 +173,12 @@
     <ClInclude Include="src\window\Window.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="src\render\shaders\light.frag" />
+    <None Include="src\render\shaders\light.vert" />
     <None Include="src\render\shaders\simple.frag" />
     <None Include="src\render\shaders\simple.vert" />
+    <None Include="src\render\shaders\single_light.frag" />
+    <None Include="src\render\shaders\single_light.vert" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="textures\wall.jpg" />

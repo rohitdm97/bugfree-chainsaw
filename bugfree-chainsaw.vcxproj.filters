@@ -63,6 +63,9 @@
     <ClCompile Include="src\camera\Camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Box.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\window\Window.h">
@@ -100,6 +103,10 @@
     <None Include="src\render\shaders\simple.vert">
       <Filter>Resource Files\Shaders</Filter>
     </None>
+    <None Include="src\render\shaders\light.vert" />
+    <None Include="src\render\shaders\light.frag" />
+    <None Include="src\render\shaders\single_light.frag" />
+    <None Include="src\render\shaders\single_light.vert" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="textures\wall.jpg">
