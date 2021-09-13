@@ -9,6 +9,8 @@
 #include <render/Shader.h>
 #include <model/Mesh.h>
 #include <texture/Texture.h>
+#include <render/Light.h>
+#include <render/Material.h>
 
 const int width = 1024;
 const int height = 768;
@@ -56,11 +58,20 @@ int main() {
 	light_color /= 255.0;
 	glm::vec3 rotation_axis = glm::normalize(glm::vec3(0, 1, 0));
 	glm::vec4 light_position = glm::vec4(lightBox.position, 1);
+	Light light(light_position);
+	light.ambient = glm::vec3(0.2f, 0.2f, 0.2f);
+	light.diffuse = glm::vec3(0.5f, 0.5f, 0.5f);
+	light.specular = glm::vec3(1.0f, 1.0f, 1.0f);
+
 	shader.Activate();
-	shader.SetVec3("light.ambient", glm::vec3(1, 1, 1));
-	shader.SetVec3("light.diffuse", glm::vec3(1, 1, 1));
-	shader.SetVec3("light.specular", glm::vec3(1, 1, 1));
-	shader.SetVec3("light.position", glm::vec3(light_position));
+	light.Export(shader);
+
+	Material material;
+	material.ambient = glm::vec3(1.0f, 0.5f, 0.31f);
+	material.diffuse = glm::vec3(1.0f, 0.5f, 0.31f);
+	material.specular = glm::vec3(0.5f, 0.5f, 0.5f);
+	material.shininess = 32.0f;
+	material.Export(shader);
 
 	double delta = 0;
 	double lastFrame = glfwGetTime();
