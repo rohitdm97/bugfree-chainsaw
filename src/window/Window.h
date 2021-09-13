@@ -20,11 +20,12 @@ public:
 	int width, height;
 	double lastX, lastY;
 	Camera* camera;
+	bool wireframe = false;
 
 	Window(const int width, const int height, const char* title);
 
+	void SetWireframe(bool active);
 	void Activate();
-	void RegisterCallbacks();
 	void SetCamera(Camera& camera);
 	void Delete();
 
@@ -32,6 +33,8 @@ public:
 	void HandleMouseScroll(double xoffset, double yoffset);
 	void HandleKeyboardInput(double delta);
 	void HandleMouseButtonClicked(int button, int action, int mods);
+private:
+	void RegisterCallbacks();
 };
 
 #endif // !__WINDOW_CLASS_H

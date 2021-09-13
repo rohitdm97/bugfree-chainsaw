@@ -1,6 +1,8 @@
 #include "Window.h"
 #include <debug.h>
 
+#include "texture/Texture.h"
+
 void framebuffer_size_callback(GLFWwindow* ref, int width, int height)
 {
 	glViewport(0, 0, width, height);
@@ -47,25 +49,56 @@ void Window::RegisterCallbacks()
 	glfwSetScrollCallback(ref, mouse_scroll_callback);
 }
 
+void printMachineInfo() {
+	int nrAttributes;
+	glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &nrAttributes);
+	std::cout << "Maximum nr of vertex attributes supported: [" << nrAttributes << "]" << std::endl;
+}
 
 Window::Window(const int width, const int height, const char* title)
 {
 	Window::width = width;
 	Window::height = height;
+	Window::lastX = width / 2;
+	Window::lastY = height / 2;
+	Window::mouseClicked = false;
+	Window::camera = nullptr;
+
+	glfwInit();
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
 	ref = glfwCreateWindow(width, height, title, NULL, NULL);
 	if (ref == NULL) {
 		glfwTerminate();
 	}
-	Window::lastX = width / 2;
-	Window::lastY = height / 2;
-	Window::mouseClicked = false;
+	else
+	{
+		// only add window if it is working
+		Window::instances[ref] = this;
+	}
+}
 
-	Window::instances[ref] = this;
+void Window::SetWireframe(bool active)
+{
+	Window::wireframe = active;
 }
 
 void Window::Activate()
 {
 	glfwMakeContextCurrent(ref);
+	RegisterCallbacks();
+
+	gladLoadGL();
+	printMachineInfo();
+
+	glPolygonMode(GL_FRONT_AND_BACK, wireframe ? GL_LINE : GL_FILL);
+	glViewport(0, 0, width, height);
+
+	Texture::Init();
+
+	glEnable(GL_DEPTH_TEST);
 }
 
 void Window::Delete()
@@ -131,11 +164,7 @@ void Window::HandleMouseButtonClicked(int button, int action, int mods)
 	if (action == GLFW_PRESS)
 	{
 		glfwGetCursorPos(ref, &lastX, &lastY);
-		mouseClicked = true;
-	}
-	else if (action == GLFW_RELEASE)
-	{
-		mouseClicked = false;
+		mouseClicked = !mouseClicked;
 	}
 }
 

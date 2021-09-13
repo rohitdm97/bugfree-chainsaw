@@ -13,6 +13,8 @@ private:
 public:
 	Texture(const char* filename);
 	void Bind();
+
+	static void Init();
 };
 
 #endif // !__TEXTURE_CLASS_H

@@ -10,13 +10,8 @@
 #include <model/Mesh.h>
 #include <texture/Texture.h>
 
-const bool wireframe = false;
 const int width = 1024;
 const int height = 768;
-
-//extern std::vector<glm::vec3> triangleVertices1;
-//extern std::vector<unsigned int> triangleIndices1;
-
 
 extern std::vector<Vertex> vertices;
 extern std::vector<unsigned int> indices;
@@ -31,46 +26,15 @@ glm::vec3 x_axis = glm::vec3(1, 0, 0);
 glm::vec3 y_axis = glm::vec3(0, 1, 0);
 glm::vec3 z_axis = glm::vec3(0, 0, 1);
 
-void printMachineInfo() {
-	int nrAttributes;
-	glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &nrAttributes);
-	std::cout << "Maximum nr of vertex attributes supported: [" << nrAttributes << "]" << std::endl;
-}
 
 int main() {
-
-	glfwInit();
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
 	Window window(width, height, "This is the title");
+	window.SetWireframe(false);
 	if (window.ref == NULL) {
 		return -1;
 	}
+	// activate the window and load openGL
 	window.Activate();
-	window.RegisterCallbacks();
-
-	gladLoadGL();
-	printMachineInfo();
-
-	glViewport(0, 0, window.width, window.height);
-	if (wireframe)
-	{
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	}
-	else
-	{
-		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-	};
-
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-	glEnable(GL_DEPTH_TEST);
 
 	Shader shader("single_light");
 	Mesh mesh(vertices, indices, std::make_unique<Shader>(shader));
