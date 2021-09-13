@@ -16,7 +16,7 @@ public:
 	static std::map<GLFWwindow*, Window*> instances;
 public:
 	GLFWwindow* ref;
-	bool firstMouse = true;
+	bool mouseClicked = false;
 	int width, height;
 	double lastX, lastY;
 	Camera* camera;
@@ -31,6 +31,7 @@ public:
 	void HandleMousePosition(double xpos, double ypos);
 	void HandleMouseScroll(double xoffset, double yoffset);
 	void HandleKeyboardInput(double delta);
+	void HandleMouseButtonClicked(int button, int action, int mods);
 };
 
 #endif // !__WINDOW_CLASS_H

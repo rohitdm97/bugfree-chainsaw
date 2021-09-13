@@ -12,6 +12,15 @@ void framebuffer_size_callback(GLFWwindow* ref, int width, int height)
 	}
 }
 
+void mouse_button_callback(GLFWwindow* ref, int button, int action, int mods)
+{
+	auto windowE = Window::instances.find(ref);
+	if (windowE != Window::instances.end()) {
+		auto window = windowE->second;
+		window->HandleMouseButtonClicked(button, action, mods);
+	}
+}
+
 void mouse_cursor_pos_callback(GLFWwindow* ref, double xpos, double ypos)
 {
 	auto windowE = Window::instances.find(ref);
@@ -33,6 +42,7 @@ void mouse_scroll_callback(GLFWwindow* ref, double xoffset, double yoffset)
 void Window::RegisterCallbacks()
 {
 	glfwSetFramebufferSizeCallback(ref, framebuffer_size_callback);
+	glfwSetMouseButtonCallback(ref, mouse_button_callback);
 	glfwSetCursorPosCallback(ref, mouse_cursor_pos_callback);
 	glfwSetScrollCallback(ref, mouse_scroll_callback);
 }
@@ -48,7 +58,7 @@ Window::Window(const int width, const int height, const char* title)
 	}
 	Window::lastX = width / 2;
 	Window::lastY = height / 2;
-	Window::firstMouse = true;
+	Window::mouseClicked = false;
 
 	Window::instances[ref] = this;
 }
@@ -70,21 +80,17 @@ void Window::SetCamera(Camera& camera)
 
 void Window::HandleMousePosition(double xpos, double ypos)
 {
-	if (firstMouse)
+	if (mouseClicked)
 	{
+		double xoffset = xpos - lastX;
+		double yoffset = lastY - ypos; // reversed since y-coordinates go from bottom to top
+
 		lastX = xpos;
 		lastY = ypos;
-		firstMouse = false;
-	}
 
-	double xoffset = xpos - lastX;
-	double yoffset = lastY - ypos; // reversed since y-coordinates go from bottom to top
-
-	lastX = xpos;
-	lastY = ypos;
-
-	if (camera) {
-		camera->ProcessMouseMovement((float)xoffset, (float)yoffset);
+		if (camera) {
+			camera->ProcessMouseMovement((float)xoffset, (float)yoffset);
+		}
 	}
 }
 
@@ -102,12 +108,6 @@ void Window::HandleKeyboardInput(double delta)
 	{
 		glfwSetWindowShouldClose(ref, true);
 	}
-	if (glfwGetKey(ref, GLFW_KEY_SPACE) == GLFW_PRESS)
-	{
-		lastX = width / 2;
-		lastY = height / 2;
-		firstMouse = true;
-	}
 
 	if (camera)
 	{
@@ -119,6 +119,23 @@ void Window::HandleKeyboardInput(double delta)
 			camera->ProcessKeyboard(Camera::LEFT, delta);
 		if (glfwGetKey(ref, GLFW_KEY_D) == GLFW_PRESS)
 			camera->ProcessKeyboard(Camera::RIGHT, delta);
+	}
+}
+
+void Window::HandleMouseButtonClicked(int button, int action, int mods)
+{
+	if (button != GLFW_MOUSE_BUTTON_1)
+	{
+		return;
+	}
+	if (action == GLFW_PRESS)
+	{
+		glfwGetCursorPos(ref, &lastX, &lastY);
+		mouseClicked = true;
+	}
+	else if (action == GLFW_RELEASE)
+	{
+		mouseClicked = false;
 	}
 }
 
