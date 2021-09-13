@@ -66,6 +66,12 @@
     <ClCompile Include="src\Box.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\render\Material.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\render\Light.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\window\Window.h">
@@ -95,6 +101,12 @@
     <ClInclude Include="src\camera\Camera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\render\Material.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\render\Light.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\render\shaders\simple.frag">
@@ -113,6 +125,12 @@
       <Filter>Resource Files\Shaders</Filter>
     </None>
     <None Include="src\render\shaders\single_light.vert">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
+    <None Include="src\render\shaders\with_material.frag">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
+    <None Include="src\render\shaders\with_material.vert">
       <Filter>Resource Files\Shaders</Filter>
     </None>
   </ItemGroup>

@@ -156,6 +156,8 @@
     <ClCompile Include="src\model\VAO.cpp" />
     <ClCompile Include="src\model\VBO.cpp" />
     <ClCompile Include="src\Rectangle.cpp" />
+    <ClCompile Include="src\render\Light.cpp" />
+    <ClCompile Include="src\render\Material.cpp" />
     <ClCompile Include="src\render\Shader.cpp" />
     <ClCompile Include="src\stb.cpp" />
     <ClCompile Include="src\texture\Texture.cpp" />
@@ -168,6 +170,8 @@
     <ClInclude Include="src\model\Mesh.h" />
     <ClInclude Include="src\model\VAO.h" />
     <ClInclude Include="src\model\VBO.h" />
+    <ClInclude Include="src\render\Light.h" />
+    <ClInclude Include="src\render\Material.h" />
     <ClInclude Include="src\render\Shader.h" />
     <ClInclude Include="src\texture\Texture.h" />
     <ClInclude Include="src\window\Window.h" />
@@ -179,6 +183,8 @@
     <None Include="src\render\shaders\simple.vert" />
     <None Include="src\render\shaders\single_light.frag" />
     <None Include="src\render\shaders\single_light.vert" />
+    <None Include="src\render\shaders\with_material.frag" />
+    <None Include="src\render\shaders\with_material.vert" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="textures\wall.jpg" />
