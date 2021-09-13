@@ -36,7 +36,7 @@ int main() {
 	// activate the window and load openGL
 	window.Activate();
 
-	Shader shader("single_light");
+	Shader shader("with_material");
 	Mesh mesh(vertices, indices, std::make_unique<Shader>(shader));
 	mesh.Move(glm::vec3(0.1, -0.2, 0));
 	Texture texture("wall.jpg");
@@ -57,8 +57,10 @@ int main() {
 	glm::vec3 rotation_axis = glm::normalize(glm::vec3(0, 1, 0));
 	glm::vec4 light_position = glm::vec4(lightBox.position, 1);
 	shader.Activate();
-	shader.SetVec3("light_color", glm::vec3(1, 1, 1));
-	shader.SetVec3("light_position", glm::vec3(light_position));
+	shader.SetVec3("light.ambient", glm::vec3(1, 1, 1));
+	shader.SetVec3("light.diffuse", glm::vec3(1, 1, 1));
+	shader.SetVec3("light.specular", glm::vec3(1, 1, 1));
+	shader.SetVec3("light.position", glm::vec3(light_position));
 
 	double delta = 0;
 	double lastFrame = glfwGetTime();
@@ -92,7 +94,7 @@ int main() {
 		light_position = rot * light_position;
 
 		shader.Activate();
-		shader.SetVec3("light_position", glm::vec3(light_position));
+		shader.SetVec3("light.position", glm::vec3(light_position));
 		shader.SetVec3("camera_position", camera.position);
 		mesh.Render(camera);
 

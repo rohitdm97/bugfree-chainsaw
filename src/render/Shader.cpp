@@ -80,6 +80,11 @@ void Shader::Delete()
 	glDeleteProgram(ID);
 }
 
+void Shader::SetFloat(const char* name, float value)
+{
+	glUniform1f(glGetUniformLocation(ID, name), value);
+}
+
 void Shader::SetVec3(const char* name, glm::vec3 vec3)
 {
 	glUniform3fv(glGetUniformLocation(ID, name), 1, glm::value_ptr(vec3));
