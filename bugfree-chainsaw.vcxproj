@@ -193,6 +193,8 @@
     <None Include="src\render\shaders\with_material.vert" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="textures\container2.png" />
+    <Image Include="textures\container2_specular.png" />
     <Image Include="textures\wall.jpg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

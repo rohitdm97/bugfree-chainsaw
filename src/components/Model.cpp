@@ -4,7 +4,7 @@ Model::Model(
 	std::vector<Vertex>& vertices,
 	std::vector<unsigned int>& indices,
 	const char* shader,
-	const char* texture,
+	Material* material,
 	Camera& camera,
 	Light& light
 )
@@ -13,9 +13,6 @@ Model::Model(
 	Model::light.reset(&light);
 
 	Model::mesh.reset(new Mesh(vertices, indices, shader));
-	Material* material = new Material(texture);
-	material->specular = glm::vec3(0.5f, 0.5f, 0.5f);
-	material->shininess = 32.0f;
 	Model::material.reset(material);
 	mesh->SetMaterial(*material);
 }

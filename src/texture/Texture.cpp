@@ -5,14 +5,9 @@ std::string convert(const char* filename) {
 	return "textures/" + std::string(filename);
 }
 
-Texture::Texture()
+Texture::Texture(int slot, const char* filename)
 {
-	// creates a no-op texture
-	ID = -1;
-}
-
-Texture::Texture(const char* filename)
-{
+	Texture::slot = slot;
 	std::string filepath = convert(filename);
 	int width, height, nrChannels;
 	unsigned char* data = stbi_load(filepath.c_str(), &width, &height, &nrChannels, 0);
@@ -23,7 +18,7 @@ Texture::Texture(const char* filename)
 	glGenTextures(1, &ID);
 	Texture::Bind();
 
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
 	glGenerateMipmap(GL_TEXTURE_2D);
 
 	stbi_image_free(data);
@@ -31,6 +26,7 @@ Texture::Texture(const char* filename)
 
 void Texture::Bind()
 {
+	glActiveTexture(GL_TEXTURE0 + slot);
 	glBindTexture(GL_TEXTURE_2D, ID);
 }
 

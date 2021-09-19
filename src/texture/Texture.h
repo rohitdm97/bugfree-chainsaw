@@ -11,8 +11,8 @@ class Texture
 private:
 	GLuint ID;
 public:
-	Texture();
-	Texture(const char* filename);
+	int slot;
+	Texture(int slot, const char* filename);
 	void Bind();
 
 	static void Init();

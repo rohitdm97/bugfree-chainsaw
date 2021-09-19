@@ -33,7 +33,7 @@ public:
 		std::vector<Vertex>& vertices,
 		std::vector<unsigned int>& indices,
 		const char* shader,
-		const char* texture,
+		Material* material,
 		Camera& camera,
 		Light& light
 	);

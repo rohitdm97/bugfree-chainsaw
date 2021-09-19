@@ -12,14 +12,11 @@ typedef std::unique_ptr<Texture> TexturePtr;
 
 class Material
 {
-private:
-	bool applicable;
 public:
-	TexturePtr texture;
-	glm::vec3 specular;
+	TexturePtr diffuse;
+	TexturePtr specular;
 	float shininess;
 	Material();
-	Material(const char* texture);
 
 	void Export(Shader& shader);
 };

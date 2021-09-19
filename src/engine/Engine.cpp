@@ -59,11 +59,15 @@ Engine::Engine() : metric(Metric(15))
 	}
 
 	{
+		Material* material = new Material();
+		material->diffuse.reset(new Texture(0, "container2.png"));
+		material->specular.reset(new Texture(1, "container2_specular.png"));
+		material->shininess = 32.0f;
 		model.reset(
 			new Model(
 				vertices, indices,
 				"with_material",
-				"wall.jpg",
+				material,
 				*camera,
 				*light
 			)
