@@ -64,8 +64,8 @@ public:
 	void ProcessKeyboard(Movement move, double delta);
 	void ProcessMouseMovement(float xoffset, float yoffset);
 	void ProcessMouseScroll(float yoffset);
-private:
-	void print();
+
+	void Print();
 };
 
 #endif // !__CAMERA_CLASS_H

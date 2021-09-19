@@ -10,8 +10,7 @@ in vec2 texuv;
 uniform sampler2D tex0;
 
 struct Material {
-	vec3 ambient;
-	vec3 diffuse;
+	sampler2D diffuse;
 	vec3 specular;
 
 	float shininess;
@@ -32,11 +31,11 @@ uniform vec3 camera_position;
 vec4 point_light() {
 	vec3 norm = normalize(normal);
 
-	vec3 ambient = light.ambient * material.ambient;
+	vec3 ambient = light.ambient * vec3(texture(material.diffuse, texuv));
 
 	vec3 lightDir = normalize(light.position.xyz - position.xyz);
 	float diff = max(dot(norm, lightDir), 0.0);
-	vec3 diffuse = light.diffuse * (diff * material.diffuse);
+	vec3 diffuse = light.diffuse * (diff * vec3(texture(material.diffuse, texuv)));
 
 	vec3 viewDir = normalize(camera_position - position.xyz);
 	vec3 reflectDir = reflect(-lightDir, norm);
@@ -48,5 +47,5 @@ vec4 point_light() {
 
 void main()
 {
-	out_color = point_light() * texture(tex0, texuv);
+	out_color = point_light();
 }

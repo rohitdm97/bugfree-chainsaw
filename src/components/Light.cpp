@@ -36,7 +36,7 @@ void Light::Update(double time, double delta)
 void Light::Render(double delta)
 {
 	mesh->position = position;
-	mesh->Render(camera, *this, texture);
+	mesh->Render(camera, *this);
 }
 
 double generate_random_double(double time, double d_time)

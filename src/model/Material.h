@@ -3,16 +3,23 @@
 #define __MATERIAL_CLASS_h
 
 #include <glm/glm.hpp>
+#include <memory>
+
 #include <render/Shader.h>
+#include <texture/Texture.h>
+
+typedef std::unique_ptr<Texture> TexturePtr;
 
 class Material
 {
+private:
+	bool applicable;
 public:
-	glm::vec3 ambient;
-	glm::vec3 diffuse;
+	TexturePtr texture;
 	glm::vec3 specular;
-
 	float shininess;
+	Material();
+	Material(const char* texture);
 
 	void Export(Shader& shader);
 };

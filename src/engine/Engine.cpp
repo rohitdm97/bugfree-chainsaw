@@ -26,13 +26,6 @@ glm::vec3 x_axis = glm::vec3(1, 0, 0);
 glm::vec3 y_axis = glm::vec3(0, 1, 0);
 glm::vec3 z_axis = glm::vec3(0, 0, 1);
 
-Material material = {
-	glm::vec3(1.0f, 0.5f, 0.31f),
-	glm::vec3(1.0f, 0.5f, 0.31f),
-	glm::vec3(0.5f, 0.5f, 0.5f),
-	32.0f,
-};
-
 Engine::Engine() : metric(Metric(15))
 {
 	window.reset(new Window(width, height, "This is the title"));
@@ -45,7 +38,7 @@ Engine::Engine() : metric(Metric(15))
 	window->Activate();
 	std::cout << "Created Window" << std::endl;
 
-	camera.reset(new Camera(glm::vec3(5, 5, 5), width, height, -135, -35));
+	camera.reset(new Camera(glm::vec3(-2.28623, -1.18217, 2.87997), width, height, -42.3999f, 17.9f));
 	window->SetCamera(camera);
 	std::cout << "Created Camera" << std::endl;
 
@@ -71,7 +64,6 @@ Engine::Engine() : metric(Metric(15))
 				vertices, indices,
 				"with_material",
 				"wall.jpg",
-				material,
 				*camera,
 				*light
 			)

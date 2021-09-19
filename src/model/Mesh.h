@@ -48,7 +48,7 @@ public:
 	void Move(glm::vec3 dir);
 	void Scale(float mult);
 	void SetMaterial(Material& material);
-	void Render(Camera& camera, Light& light, Texture& texture);
+	void Render(Camera& camera, Light& light);
 	void Delete();
 };
 

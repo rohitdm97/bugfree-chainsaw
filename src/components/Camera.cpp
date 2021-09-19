@@ -109,7 +109,7 @@ void Camera::Export(Shader& shader)
 void printTo(std::ostream& cout, glm::vec3 vec);
 void printTo(std::ostream& cout, glm::mat4 mat);
 
-void Camera::print() {
+void Camera::Print() {
 	std::cout << "Camera[";
 	std::cout << "pos = ("; printTo(std::cout, position); std::cout << ")";
 	std::cout << ", width=" << width;

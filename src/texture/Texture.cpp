@@ -8,7 +8,7 @@ std::string convert(const char* filename) {
 Texture::Texture()
 {
 	// creates a no-op texture
-	ID = 0;
+	ID = -1;
 }
 
 Texture::Texture(const char* filename)

@@ -16,7 +16,7 @@ uniform mat4 camera;
 void main()
 {
 	position = model * vec4(in_pos, 1.0f);
-	normal = in_normal;
+	normal = mat3(transpose(inverse(model))) * in_normal;
 	color = in_color;
 	texuv = in_texuv;
 

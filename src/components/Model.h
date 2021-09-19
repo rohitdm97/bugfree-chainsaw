@@ -16,6 +16,7 @@
 typedef std::unique_ptr<Camera> CameraPtr;
 typedef std::unique_ptr<Light> LightPtr;
 typedef std::unique_ptr<Mesh> MeshPtr;
+typedef std::unique_ptr<Material> MaterialPtr;
 typedef std::unique_ptr<Texture> TexturePtr;
 
 
@@ -25,7 +26,7 @@ public:
 	CameraPtr camera;
 	LightPtr light;
 	MeshPtr mesh;
-	Material material;
+	MaterialPtr material;
 	TexturePtr texture;
 
 	Model(
@@ -33,7 +34,6 @@ public:
 		std::vector<unsigned int>& indices,
 		const char* shader,
 		const char* texture,
-		Material& material,
 		Camera& camera,
 		Light& light
 	);

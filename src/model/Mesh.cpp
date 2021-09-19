@@ -63,12 +63,11 @@ void Mesh::SetMaterial(Material& material)
 	material.Export(*shader);
 }
 
-void Mesh::Render(Camera& camera, Light& light, Texture& texture)
+void Mesh::Render(Camera& camera, Light& light)
 {
 	shader->Activate();
 	vao->Bind();
 	ebo->Bind();
-	texture.Bind();
 
 	camera.Export(*shader);
 	light.Export(*shader);

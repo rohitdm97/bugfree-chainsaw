@@ -14,9 +14,6 @@ typedef std::unique_ptr<Mesh> MeshPtr;
 class Light
 {
 private:
-// No-op for now
-	Texture texture;
-
 	Camera& camera;
 public:
 	// vec4 for easier calculations

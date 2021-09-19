@@ -1,10 +1,24 @@
 #include "Material.h"
 
+Material::Material() {
+	applicable = false;
+}
+
+Material::Material(const char* texture) {
+	applicable = true;
+
+	Material::texture.reset(new Texture(texture));
+}
+
 void Material::Export(Shader& shader)
 {
-	shader.SetVec3("material.ambient", ambient);
-	shader.SetVec3("material.diffuse", diffuse);
+	if (!applicable) {
+		return ;
+	}
+	shader.SetInt("material.diffuse", 0);
 	shader.SetVec3("material.specular", specular);
 
 	shader.SetFloat("material.shininess", shininess);
+
+	texture->Bind();
 }

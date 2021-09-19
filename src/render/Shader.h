@@ -32,6 +32,7 @@ public:
 	void Delete();
 
 	// setters for uniform
+	void SetInt(const char* name, int value);
 	void SetFloat(const char* name, float value);
 	void SetVec3(const char* name, glm::vec3 vec3);
 	void SetVec4(const char* name, glm::vec4 vec4);

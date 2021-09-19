@@ -5,7 +5,6 @@ Model::Model(
 	std::vector<unsigned int>& indices,
 	const char* shader,
 	const char* texture,
-	Material& material,
 	Camera& camera,
 	Light& light
 )
@@ -14,9 +13,11 @@ Model::Model(
 	Model::light.reset(&light);
 
 	Model::mesh.reset(new Mesh(vertices, indices, shader));
-	mesh->SetMaterial(material);
-	Model::material = material;
-	Model::texture.reset(new Texture(texture));
+	Material* material = new Material(texture);
+	material->specular = glm::vec3(0.5f, 0.5f, 0.5f);
+	material->shininess = 32.0f;
+	Model::material.reset(material);
+	mesh->SetMaterial(*material);
 }
 
 void Model::Move(glm::vec3 diff)
@@ -30,5 +31,5 @@ void Model::Update(double time, double d_time)
 
 void Model::Render(double d_time)
 {
-	mesh->Render(*camera, *light, *texture);
+	mesh->Render(*camera, *light);
 }

@@ -161,7 +161,11 @@ void Window::HandleKeyboardInput(double delta)
 			c->ProcessKeyboard(Camera::LEFT, delta);
 		if (glfwGetKey(ref, GLFW_KEY_D) == GLFW_PRESS)
 			c->ProcessKeyboard(Camera::RIGHT, delta);
+		if (glfwGetKey(ref, GLFW_KEY_C) == GLFW_PRESS) {
+			c->Print();
+		}
 	}
+
 }
 
 void Window::HandleMouseButtonClicked(int button, int action, int mods)
