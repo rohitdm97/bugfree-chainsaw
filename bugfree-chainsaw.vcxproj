@@ -146,32 +146,38 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\Box.cpp" />
-    <ClCompile Include="src\camera\Camera.cpp" />
+    <ClCompile Include="src\components\Camera.cpp" />
+    <ClCompile Include="src\components\Model.cpp" />
     <ClCompile Include="src\debug.cpp" />
+    <ClCompile Include="src\engine\Engine.cpp" />
+    <ClCompile Include="src\engine\Metrics.cpp" />
     <ClCompile Include="src\glad.c" />
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\model\EBO.cpp" />
     <ClCompile Include="src\model\Mesh.cpp" />
-    <ClCompile Include="src\model\Triangle.cpp" />
+    <ClCompile Include="src\Triangle.cpp" />
     <ClCompile Include="src\model\VAO.cpp" />
     <ClCompile Include="src\model\VBO.cpp" />
     <ClCompile Include="src\Rectangle.cpp" />
-    <ClCompile Include="src\render\Light.cpp" />
-    <ClCompile Include="src\render\Material.cpp" />
+    <ClCompile Include="src\components\Light.cpp" />
+    <ClCompile Include="src\model\Material.cpp" />
     <ClCompile Include="src\render\Shader.cpp" />
     <ClCompile Include="src\stb.cpp" />
     <ClCompile Include="src\texture\Texture.cpp" />
     <ClCompile Include="src\window\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\camera\Camera.h" />
+    <ClInclude Include="src\components\Camera.h" />
+    <ClInclude Include="src\components\Model.h" />
     <ClInclude Include="src\debug.h" />
+    <ClInclude Include="src\engine\Engine.h" />
+    <ClInclude Include="src\engine\Metrics.h" />
     <ClInclude Include="src\model\EBO.h" />
     <ClInclude Include="src\model\Mesh.h" />
     <ClInclude Include="src\model\VAO.h" />
     <ClInclude Include="src\model\VBO.h" />
-    <ClInclude Include="src\render\Light.h" />
-    <ClInclude Include="src\render\Material.h" />
+    <ClInclude Include="src\components\Light.h" />
+    <ClInclude Include="src\model\Material.h" />
     <ClInclude Include="src\render\Shader.h" />
     <ClInclude Include="src\texture\Texture.h" />
     <ClInclude Include="src\window\Window.h" />

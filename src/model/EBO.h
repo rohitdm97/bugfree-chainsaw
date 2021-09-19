@@ -12,10 +12,10 @@ public:
 	GLuint ID;
 	GLsizei Length;
 	EBO(std::vector<unsigned int>& indices);
+	~EBO();
 
 	void Bind();
 	void Unbind();
-	void Delete();
 };
 
 #endif // !__EBO_CLASS_H

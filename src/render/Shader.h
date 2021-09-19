@@ -34,6 +34,7 @@ public:
 	// setters for uniform
 	void SetFloat(const char* name, float value);
 	void SetVec3(const char* name, glm::vec3 vec3);
+	void SetVec4(const char* name, glm::vec4 vec4);
 	void SetMat4(const char* name, glm::mat4 matrix);
 };
 

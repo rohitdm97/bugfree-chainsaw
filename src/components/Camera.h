@@ -53,6 +53,7 @@ public:
 		LEFT,
 		RIGHT
 	};
+	Camera();
 	Camera(glm::vec3 postion, int width, int height);
 	Camera(glm::vec3 postion, int width, int height, float yaw, float pitch);
 

@@ -19,7 +19,7 @@ struct Material {
 uniform Material material;
 
 struct Light {
-	vec3 position;
+	vec4 position;
 
 	vec3 ambient;
 	vec3 diffuse;
@@ -34,7 +34,7 @@ vec4 point_light() {
 
 	vec3 ambient = light.ambient * material.ambient;
 
-	vec3 lightDir = normalize(light.position - position.xyz);
+	vec3 lightDir = normalize(light.position.xyz - position.xyz);
 	float diff = max(dot(norm, lightDir), 0.0);
 	vec3 diffuse = light.diffuse * (diff * material.diffuse);
 

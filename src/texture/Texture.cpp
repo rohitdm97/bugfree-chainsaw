@@ -5,6 +5,12 @@ std::string convert(const char* filename) {
 	return "textures/" + std::string(filename);
 }
 
+Texture::Texture()
+{
+	// creates a no-op texture
+	ID = 0;
+}
+
 Texture::Texture(const char* filename)
 {
 	std::string filepath = convert(filename);

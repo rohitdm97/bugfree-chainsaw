@@ -9,14 +9,16 @@
 
 class VAO
 {
+private:
+
 public:
 	GLuint ID;
 
 	VAO();
+	~VAO();
 
 	void Bind();
 	void Unbind();
-	void Delete();
 };
 
 #endif // !__VAO_CLASS_H

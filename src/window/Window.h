@@ -8,25 +8,28 @@
 #include <memory>
 #include <map>
 
-#include"camera/Camera.h"
+#include <components/Camera.h>
+
+typedef std::weak_ptr<Camera> CameraWeakPtr;
 
 class Window
 {
 public:
 	static std::map<GLFWwindow*, Window*> instances;
 public:
+	bool ShouldClose = false;
 	GLFWwindow* ref;
 	bool mouseClicked = false;
 	int width, height;
 	double lastX, lastY;
-	Camera* camera;
+	CameraWeakPtr camera;
 	bool wireframe = false;
 
 	Window(const int width, const int height, const char* title);
 
 	void SetWireframe(bool active);
 	void Activate();
-	void SetCamera(Camera& camera);
+	void SetCamera(std::shared_ptr<Camera> camera);
 	void Delete();
 
 	void HandleMousePosition(double xpos, double ypos);

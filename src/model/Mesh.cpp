@@ -3,29 +3,43 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <debug.h>
 
-Mesh::Mesh(std::vector<Vertex>& vertices, std::vector<unsigned int>& indices) :
-	Mesh(vertices, indices, std::make_unique<Shader>("simple"))
-{
-}
+#include <components/Camera.h>
+#include <components/Light.h>
 
-Mesh::Mesh(std::vector<Vertex>& vertices, std::vector<unsigned int>& indices, std::unique_ptr<Shader> shader) :
-	shader(std::move(shader))
+Mesh::Mesh(
+	std::vector<Vertex>& vertices,
+	std::vector<unsigned int>& indices,
+	const char* shaderName
+)
 {
-	modelMatrix = glm::mat4(1);
-
-	vao = std::make_unique<VAO>();
+	Mesh::shader.reset(new Shader(shaderName));
+	vao.reset(new VAO());
 	vao->Bind();
 
-	vbo = std::make_unique<VBO>(vertices);
-	ebo = std::make_unique<EBO>(indices);
+	vbo.reset(new VBO(vertices));
+	ebo.reset(new EBO(indices));
 
 	vbo->Attribute();
 	vao->Unbind();
+
+	modelMatrix = glm::mat4(1);
+
+	shader->Activate();
+
+}
+
+Mesh::~Mesh()
+{
+	ebo.reset();
+	vbo.reset();
+	vao.reset();
+
+	shader.reset();
 }
 
 void Mesh::Move(glm::vec3 dir)
 {
-	Mesh::position += dir;
+	Mesh::position += glm::vec4(dir, 1);
 }
 
 void Mesh::Scale(float mult)
@@ -38,28 +52,28 @@ void Mesh::Scale(float mult)
 
 glm::mat4 Mesh::Matrix()
 {
-	return glm::translate(glm::mat4(1), position) * glm::scale(glm::mat4(1), glm::vec3(scale));
+	glm::mat4 translate = glm::translate(glm::mat4(1.0f), glm::vec3(position));
+	glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(Mesh::scale));
+	return translate * scale;
 }
 
-void Mesh::Render(Camera& camera)
+void Mesh::SetMaterial(Material& material)
+{
+	shader->Activate();
+	material.Export(*shader);
+}
+
+void Mesh::Render(Camera& camera, Light& light, Texture& texture)
 {
 	shader->Activate();
 	vao->Bind();
 	ebo->Bind();
+	texture.Bind();
 
 	camera.Export(*shader);
+	light.Export(*shader);
 	shader->SetMat4("model",  Matrix());
 
 	glDrawElements(GL_TRIANGLES, ebo->Length, GL_UNSIGNED_INT, 0);
 }
-
-void Mesh::Delete()
-{
-	vao->Delete();
-	vbo->Delete();
-	ebo->Delete();
-	shader->Delete();
-}
-
-
 

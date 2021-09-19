@@ -3,7 +3,7 @@
 #define __MATERIAL_CLASS_h
 
 #include <glm/glm.hpp>
-#include "Shader.h"
+#include <render/Shader.h>
 
 class Material
 {
@@ -13,7 +13,6 @@ public:
 	glm::vec3 specular;
 
 	float shininess;
-	Material();
 
 	void Export(Shader& shader);
 };

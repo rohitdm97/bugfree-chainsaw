@@ -7,31 +7,48 @@
 #include <glad/glad.h>
 #include <glm/glm.hpp>
 
-#include "VAO.h"
-#include "render/Shader.h"
-#include "camera/Camera.h"
+#include <render/Shader.h>
+#include <texture/Texture.h>
+
+#include <model/VAO.h>
+#include <model/VBO.h>
+#include <model/EBO.h>
+#include <model/Material.h>
+
+class Camera;
+class Light;
+
+typedef std::unique_ptr<Shader> ShaderPtr;
+typedef std::unique_ptr<VAO> VAOPtr;
+typedef std::unique_ptr<VBO> VBOPtr;
+typedef std::unique_ptr<EBO> EBOPtr;
 
 class Mesh
 {
 public:
-	glm::vec3 position = glm::vec3(0, 0, 0);
+	glm::vec4 position = glm::vec4(0, 0, 0, 1);
 private:
-	std::unique_ptr<Shader> shader;
-	std::unique_ptr<VAO> vao;
-	std::unique_ptr<VBO> vbo;
-	std::unique_ptr<EBO> ebo;
+	ShaderPtr shader;
+	VAOPtr vao;
+	VBOPtr vbo;
+	EBOPtr ebo;
 
 	float scale = 1.0f;
 	glm::mat4 modelMatrix;
 
 	glm::mat4 Matrix();
 public:
-	Mesh(std::vector<Vertex>& vertices, std::vector<unsigned int>& indices);
-	Mesh(std::vector<Vertex>& vertices, std::vector<unsigned int>& indices, std::unique_ptr<Shader> shader);
+	Mesh(
+		std::vector<Vertex>& vertices,
+		std::vector<unsigned int>& indices,
+		const char* shader
+	);
+	~Mesh();
 
 	void Move(glm::vec3 dir);
 	void Scale(float mult);
-	void Render(Camera& camera);
+	void SetMaterial(Material& material);
+	void Render(Camera& camera, Light& light, Texture& texture);
 	void Delete();
 };
 

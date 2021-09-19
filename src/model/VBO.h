@@ -21,13 +21,13 @@ public:
 	GLuint ID;
 
 	VBO(std::vector<Vertex>& vertices);
+	~VBO();
 
 	// called by VAO
 	void Attribute();
 
 	void Bind();
 	void Unbind();
-	void Delete();
 };
 
 #endif // !__VBO_CLASS_H

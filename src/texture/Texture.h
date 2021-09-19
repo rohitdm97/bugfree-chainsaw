@@ -11,6 +11,7 @@ class Texture
 private:
 	GLuint ID;
 public:
+	Texture();
 	Texture(const char* filename);
 	void Bind();
 

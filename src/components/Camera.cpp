@@ -12,6 +12,10 @@ extern glm::vec3 x_axis;
 extern glm::vec3 y_axis;
 extern glm::vec3 z_axis;
 
+Camera::Camera()
+{
+}
+
 Camera::Camera(glm::vec3 position, int width, int height) :
 	Camera(position, width, height, YAW, PITCH)
 {}
@@ -99,6 +103,7 @@ void Camera::updateVectors() {
 void Camera::Export(Shader& shader)
 {
 	shader.SetMat4("camera", matrix);
+	shader.SetVec3("camera_position", position);
 }
 
 void printTo(std::ostream& cout, glm::vec3 vec);

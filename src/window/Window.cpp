@@ -3,6 +3,15 @@
 
 #include "texture/Texture.h"
 
+void should_close_callback(GLFWwindow* ref)
+{
+	auto windowE = Window::instances.find(ref);
+	if (windowE != Window::instances.end()) {
+		auto window = windowE->second;
+		window->ShouldClose = true;
+	}
+}
+
 void framebuffer_size_callback(GLFWwindow* ref, int width, int height)
 {
 	glViewport(0, 0, width, height);
@@ -43,6 +52,7 @@ void mouse_scroll_callback(GLFWwindow* ref, double xoffset, double yoffset)
 
 void Window::RegisterCallbacks()
 {
+	glfwSetWindowCloseCallback(ref, should_close_callback);
 	glfwSetFramebufferSizeCallback(ref, framebuffer_size_callback);
 	glfwSetMouseButtonCallback(ref, mouse_button_callback);
 	glfwSetCursorPosCallback(ref, mouse_cursor_pos_callback);
@@ -62,7 +72,6 @@ Window::Window(const int width, const int height, const char* title)
 	Window::lastX = width / 2;
 	Window::lastY = height / 2;
 	Window::mouseClicked = false;
-	Window::camera = nullptr;
 
 	glfwInit();
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -106,9 +115,9 @@ void Window::Delete()
 	glfwDestroyWindow(ref);
 }
 
-void Window::SetCamera(Camera& camera)
+void Window::SetCamera(std::shared_ptr<Camera> camera)
 {
-	Window::camera = &camera;
+	Window::camera = camera;
 }
 
 void Window::HandleMousePosition(double xpos, double ypos)
@@ -121,16 +130,16 @@ void Window::HandleMousePosition(double xpos, double ypos)
 		lastX = xpos;
 		lastY = ypos;
 
-		if (camera) {
-			camera->ProcessMouseMovement((float)xoffset, (float)yoffset);
+		if (auto c = camera.lock()) {
+			c->ProcessMouseMovement((float)xoffset, (float)yoffset);
 		}
 	}
 }
 
 void Window::HandleMouseScroll(double xoffset, double yoffset)
 {
-	if (camera) {
-		camera->ProcessMouseScroll((float)yoffset);
+	if (auto c = camera.lock()) {
+		c->ProcessMouseScroll((float)yoffset);
 	}
 
 }
@@ -142,16 +151,16 @@ void Window::HandleKeyboardInput(double delta)
 		glfwSetWindowShouldClose(ref, true);
 	}
 
-	if (camera)
+	if (auto c = camera.lock())
 	{
 		if (glfwGetKey(ref, GLFW_KEY_W) == GLFW_PRESS)
-			camera->ProcessKeyboard(Camera::FORWARD, delta);
+			c->ProcessKeyboard(Camera::FORWARD, delta);
 		if (glfwGetKey(ref, GLFW_KEY_S) == GLFW_PRESS)
-			camera->ProcessKeyboard(Camera::BACKWARD, delta);
+			c->ProcessKeyboard(Camera::BACKWARD, delta);
 		if (glfwGetKey(ref, GLFW_KEY_A) == GLFW_PRESS)
-			camera->ProcessKeyboard(Camera::LEFT, delta);
+			c->ProcessKeyboard(Camera::LEFT, delta);
 		if (glfwGetKey(ref, GLFW_KEY_D) == GLFW_PRESS)
-			camera->ProcessKeyboard(Camera::RIGHT, delta);
+			c->ProcessKeyboard(Camera::RIGHT, delta);
 	}
 }
 
